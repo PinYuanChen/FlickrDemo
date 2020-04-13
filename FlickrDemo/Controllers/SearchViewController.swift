@@ -17,16 +17,15 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        [tfKeyword, tfPerPageNum].forEach({ $0.addTarget(self, action: #selector(editingChanged), for: .editingChanged) })
     }
     
     func setupUI() {
         tfKeyword.placeholder = "欲搜尋內容"
         tfPerPageNum.placeholder = "每頁呈現數量"
-        tfKeyword.delegate = self
-        tfPerPageNum.delegate = self
         tfKeyword.becomeFirstResponder()
         btnSearch.setTitle("搜尋", for: .normal)
-        btnSearch.isUserInteractionEnabled = false
+        setBtn(false)
     }
     
     func dismissKeyBoard() {
@@ -37,11 +36,26 @@ class SearchViewController: UIViewController {
         dismissKeyBoard()
     }
     
+    func setBtn(_ enable:Bool) {
+        btnSearch.isEnabled = enable
+        btnSearch.backgroundColor = enable ? .blue : .lightGray
+    }
+    
+    @objc func editingChanged(_ textField: UITextField) {
+        guard
+            let keyword = tfKeyword.text, !keyword.isEmpty,
+            let perPage = tfPerPageNum.text, !perPage.isEmpty
+        else {
+            setBtn(false)
+            return
+        }
+        setBtn(true)
+    }
+    
     @IBAction func didPressedSearchBtn(_ sender: Any) {
-        print("press")
+        let resultCollectionVC = storyboard?.instantiateViewController(identifier: "ResultCollectionViewController") as! ResultCollectionViewController
+        resultCollectionVC.modalPresentationStyle = .fullScreen
+        self.present(resultCollectionVC, animated: true, completion: nil)
     }
 }
 
-extension SearchViewController: UITextFieldDelegate {
-   //https://stackoverflow.com/questions/34941069/enable-a-button-in-swift-only-if-all-text-fields-have-been-filled-out
-}
