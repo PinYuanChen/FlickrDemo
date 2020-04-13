@@ -21,6 +21,7 @@ class SearchViewController: UIViewController {
     }
     
     func setupUI() {
+        self.title = "搜尋輸入頁"
         tfKeyword.placeholder = "欲搜尋內容"
         tfPerPageNum.placeholder = "每頁呈現數量"
         tfKeyword.becomeFirstResponder()
@@ -55,7 +56,7 @@ class SearchViewController: UIViewController {
     @IBAction func didPressedSearchBtn(_ sender: Any) {
         let resultCollectionVC = storyboard?.instantiateViewController(identifier: "ResultCollectionViewController") as! ResultCollectionViewController
         resultCollectionVC.modalPresentationStyle = .fullScreen
-        self.present(resultCollectionVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(resultCollectionVC, animated: true)
     }
 }
 
