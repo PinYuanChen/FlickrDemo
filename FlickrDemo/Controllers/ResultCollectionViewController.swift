@@ -8,82 +8,65 @@
 
 import UIKit
 
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "ResultCollectionViewCell"
 
 class ResultCollectionViewController: UICollectionViewController {
-
+    
+    var keyword:String = ""
+    var perPage:String = ""
+    var aryItems = [Photo]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        self.title = "搜尋結果"
+        let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        let width = (self.collectionView.bounds.width - 20) / 2
+        layout?.itemSize = CGSize(width: width, height: width + 50)
+        loadData(keyword, perPage)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    func loadData(_ keyword:String, _ perPage:String){
+        APIManager.shared.fetchData(keyword, perPage) { (aryPhoto) in
+            if let aryPhoto = aryPhoto {
+                self.aryItems = aryPhoto
+                DispatchQueue.main.async {
+                    print(self.aryItems)
+                    self.collectionView.reloadData()
+                }
+            }
+        }
     }
-    */
-
     // MARK: UICollectionViewDataSource
-
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return aryItems.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ResultCollectionViewCell
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let rCell:ResultCollectionViewCell = cell as! ResultCollectionViewCell
+        let photo = aryItems[indexPath.item]
+        rCell.labelTitle.text = photo.title
+        rCell.imgView.image = nil
+        APIManager.shared.fetchImage(photo.imageUrl) { (img) in
+            if let img = img {
+                DispatchQueue.main.async {
+                    rCell.imgView.backgroundColor = .clear
+                    rCell.imgView.image = img
+                }
+            }
+        }
     }
-    */
-
+ 
 }

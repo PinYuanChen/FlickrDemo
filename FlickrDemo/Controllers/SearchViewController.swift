@@ -55,6 +55,14 @@ class SearchViewController: UIViewController {
     
     @IBAction func didPressedSearchBtn(_ sender: Any) {
         let resultCollectionVC = storyboard?.instantiateViewController(identifier: "ResultCollectionViewController") as! ResultCollectionViewController
+        guard
+            let keyword = tfKeyword.text,
+            let perPage = tfPerPageNum.text
+        else {
+            return
+        }
+        resultCollectionVC.keyword = keyword
+        resultCollectionVC.perPage = perPage
         resultCollectionVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(resultCollectionVC, animated: true)
     }

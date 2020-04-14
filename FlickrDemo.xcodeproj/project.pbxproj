@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37114A6B24459E6A0090CFC9 /* ResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37114A6A24459E6A0090CFC9 /* ResultCollectionViewCell.swift */; };
+		37114A6E2445DD500090CFC9 /* PhotoResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37114A6D2445DD500090CFC9 /* PhotoResultModel.swift */; };
 		3794AE4D2444A1D000F8F57E /* ResultCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3794AE4C2444A1D000F8F57E /* ResultCollectionViewController.swift */; };
 		37EB41AB244492B900DD2153 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EB41AA244492B900DD2153 /* AppDelegate.swift */; };
 		37EB41AD244492B900DD2153 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37EB41AC244492B900DD2153 /* SceneDelegate.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37114A6A24459E6A0090CFC9 /* ResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		37114A6D2445DD500090CFC9 /* PhotoResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoResultModel.swift; sourceTree = "<group>"; };
 		3794AE4C2444A1D000F8F57E /* ResultCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultCollectionViewController.swift; sourceTree = "<group>"; };
 		37EB41A7244492B900DD2153 /* FlickrDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlickrDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37EB41AA244492B900DD2153 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				37EB41B0244492B900DD2153 /* Main.storyboard */,
+				37114A6A24459E6A0090CFC9 /* ResultCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -69,6 +74,7 @@
 		3794AE512444A48200F8F57E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				37114A6D2445DD500090CFC9 /* PhotoResultModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,6 +183,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3794AE4D2444A1D000F8F57E /* ResultCollectionViewController.swift in Sources */,
+				37114A6B24459E6A0090CFC9 /* ResultCollectionViewCell.swift in Sources */,
+				37114A6E2445DD500090CFC9 /* PhotoResultModel.swift in Sources */,
 				37EB41C12444948700DD2153 /* APIManager.swift in Sources */,
 				37EB41BF244492E700DD2153 /* SearchViewController.swift in Sources */,
 				37EB41AB244492B900DD2153 /* AppDelegate.swift in Sources */,
