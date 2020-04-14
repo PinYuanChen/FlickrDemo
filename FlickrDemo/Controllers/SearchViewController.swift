@@ -63,7 +63,6 @@ class SearchViewController: UIViewController {
         }
         resultCollectionVC.keyword = keyword
         resultCollectionVC.perPage = perPage
-        resultCollectionVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(resultCollectionVC, animated: true)
     }
 }
