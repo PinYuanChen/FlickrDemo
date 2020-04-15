@@ -36,6 +36,7 @@ class ResultCollectionViewController: UICollectionViewController {
             }
         }
     }
+    
     // MARK: UICollectionViewDataSource
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -62,7 +63,6 @@ class ResultCollectionViewController: UICollectionViewController {
         APIManager.shared.fetchImage(photo.imageUrl) { (img) in
             if let img = img {
                 DispatchQueue.main.async {
-                    rCell.imgView.backgroundColor = .clear
                     rCell.imgView.image = img
                 }
             }

@@ -8,12 +8,30 @@
 
 import UIKit
 
-public let API_KEY = "c6803091fc2cbc128712d991de9f2b07"
+public let API_KEY = "429acbd3cc7bce7a29a25aa8d57bd05b"
 
 class APIManager {
    static let shared = APIManager()
+    
+    func generateURL(_ keyword:String, _ perPage:String) -> URL? {
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "api.flickr.com"
+        components.path = "/services/rest/"
+        components.queryItems = [
+            URLQueryItem(name: "method", value: "flickr.photos.search"),
+            URLQueryItem(name: "text", value: keyword),
+            URLQueryItem(name: "per_page", value: perPage),
+            URLQueryItem(name: "api_key", value: API_KEY),
+            URLQueryItem(name: "format", value: "json"),
+            URLQueryItem(name: "nojsoncallback", value: "1")
+        ]
+        return components.url
+    }
+    
     func fetchData(_ keyword:String, _ perPage:String, handler: @escaping ([Photo]?) -> ()) {
-        if let url = URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(API_KEY)&text=\(keyword)&per_page=\(perPage)&format=json&nojsoncallback=1") {
+        if let url = self.generateURL(keyword, perPage)
+        {
             let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if let data = data, let searchResult = try? JSONDecoder().decode(SearchResult.self, from: data) {
                     handler(searchResult.photos.photo)
